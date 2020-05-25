@@ -18,13 +18,13 @@
   {{ if .Params.tags }}
   <span class="post-tags">
     {{ range .Params.tags }}
-    #<a href="{{ (urlize (printf "tags/%s/" .)) | absLangURL }}">{{ . }}</a>&nbsp;
+    #<a href="{{ (urlize (printf "tags/%s/" .)) | relLangURL }}">{{ . }}</a>&nbsp;
     {{ end }}
   </span>
   {{ end }}
 
   {{ with .Params.Cover }}
-  <img src="{{ . | absURL }}" class="post-cover" />
+  <img src="{{ . | relURL }}" class="post-cover" />
   {{ end }}
 
   <div class="post-content">
@@ -35,7 +35,7 @@
     {{- end -}}
   </div>
 
-  {{ if eq .Type $.Site.Params.contentTypeName }}
+  {{ if in $.Site.Params.contentTypeName .Type }}
   {{ partial "posts_pagination.html" . }}
   {{ end }}
 
